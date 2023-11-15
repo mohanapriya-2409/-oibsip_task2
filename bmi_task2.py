@@ -1,12 +1,13 @@
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import Entry, Label, Radiobutton, Button, Frame
+from tkinter import Label, Entry, Radiobutton, Button, Frame
 import matplotlib.pyplot as plt
+
 def reset():
     age.delete(0, 'end')
     height_tf.delete(0, 'end')
     weight_tf.delete(0, 'end')
     var.set(0)  # Reset gender radio buttons
+
 def bodymass():
     kg = float(weight_tf.get())
     m = float(height_tf.get())
@@ -22,17 +23,21 @@ def bodymass():
         bmi_categories = "Overweight"
     elif bmi >= 29.9:
         bmi_categories = "Obesity"
+
     custom_message = tk.Toplevel()
     custom_message.title("BMI Categories")
     custom_message.geometry("300x150")  # Set the desired size here
+
     label = Label(custom_message, text=f"BMI = {bmi} is {bmi_categories}")
     label.pack(padx=20, pady=30)
+
     ok_button = Button(custom_message, text="OK", command=custom_message.destroy)
     ok_button.pack(pady=10)
-    #PLOT GRAPH USING MATPLOTLIB
-    # Define categories for the BMI chart
+
+    # Plot graph using Matplotlib
     categories = ['Your BMI', 'Normal', 'Overweight', 'Obesity', 'Severe Obesity']
     bmi_values = [bmi, 22, 25, 29, 33]
+
     plt.figure(figsize=(6, 4))
     plt.bar(categories, bmi_values, color=['purple', 'green', 'yellow', 'red', 'orange'])
     plt.xlabel('BMI Categories')
@@ -41,20 +46,25 @@ def bodymass():
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
 window = tk.Tk()
 window.title("BMI CALCULATOR")
 window.config(bg="aqua")
 window.geometry('1000x750')
+
 frame = Frame(
+    window,
     padx=100,
     pady=75,
     bg="yellow"
 )
 frame.pack(expand=True)
+
 var = tk.IntVar()  # Initialize the variable for gender selection
+
 age_lb = Label(frame, text="ENTER YOUR AGE :")
 age_lb.grid(row=1, column=1)
-age = Entry(frame1)
+age = Entry(frame)
 age.grid(row=1, column=2, pady=5)
 
 gen = Label(frame, text='Select Gender')
@@ -89,3 +99,4 @@ exit_btn = Button(frame3, text='Exit', command=lambda: window.destroy())
 exit_btn.pack(side=tk.RIGHT)
 
 window.mainloop()
+
